@@ -6,6 +6,10 @@ cordenadas=[]
 # Function to get the coordinates of a location using OpenStreetMap Nominatim API
 def get_location_coordinates(location):
   url = f"https://nominatim.openstreetmap.org/search?q={location}&format=json"
+  headers = {
+    'User-Agent': 'Tryout',
+    'From': 'ingrese un correo'  # This is another valid field
+  }
   response = requests.get(url).json()
   if len(response) == 0:
     return None
