@@ -2,6 +2,7 @@ import folium
 import requests
 import json
 #!pip install --upgrade googletrans==4.0.0-rc1
+from geopy import distance
 from googletrans import Translator
 from countryinfo import CountryInfo
 coordinates ={}
@@ -15,7 +16,10 @@ def get_location_coordinates(location):
   }
   response = requests.get(url,headers=headers).json()
   if len(response) == 0:
-    return None
+    lat = float(response[0]['lat'])
+    lon = float(response[0]['lon'])
+    print(lat, lon)
+    return (lat, lon)
   else:
       lat = float(response[0]['lat'])
       lon = float(response[0]['lon'])
@@ -27,10 +31,11 @@ def get_distance(origin, destination):
   response = requests.get(url, headers=headers)
   if response.status_code == 200:
     data = response.json()
-    distance = data['features'][0]['properties']['segments'][0]['distance']
-    return distance
+    distance_2 = data['features'][0]['properties']['segments'][0]['distance']
+    return distance_2
   else:
-    return None
+   distance_2 = distance.distance(origin, destination)
+    return distance_2*1000
 # Main function to sort a list of places based on their proximity to a starting location
 def sort_places_by_proximity(starting_location, places_list):
   starting_coordinates = get_location_coordinates(starting_location)
