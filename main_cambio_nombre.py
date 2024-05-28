@@ -63,8 +63,8 @@ def lugares (sorted_places):
   return cordenadas
 
 #Start of the program
-starting_location = input("starting place ")
-places_input = input("Enter a comma-separated list of places: ")
+starting_location = input("starting country")
+places_input = input("Enter a comma-separated list of countries: ")
 #Separate the places
 
 places_list = places_input.split(",")
@@ -79,11 +79,11 @@ for place in places_list:
   new.append(new_place)
 
 sorted_places = sort_places_by_proximity(starting_location, new)
-print("Sorted places:")
+print("Sorted countries:")
 for place in sorted_places:
     place= translator.translate(place, dest="en").text
     print(place)
-new_places = input("Enter a new place to add to the list: ")
+new_places = input("Enter a new country to add to the list: ")
 places = [place.strip() for place in new_places.split(",")]
 new.extend(places)
 sorted_places = sort_places_by_proximity(starting_location, new)
